@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="d-flex justify-content-center mainBox">
+
+      <div class="toDoBox">
+        <h1 style="text-align: center;">To Do List</h1>
+        <div class="form-todo">
+          <form method="POST" action="{% url 'add-task' %}">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-9">
+                <div class="form-group">
+                  {{form.title}}
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-group">
+                  {{form.deadline}}
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <div>
+                  <h2 id="headingOne">
+                    <a href="" style="font-size: 14px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                     Detail
+                    </a>
+                  </h2>
+                  <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body" style="padding: 0;">
+                      <div class="row mt-4">
+                        <div class="col-12">
+                          {{form.description}}
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-12">
+                          <div class="form-check">
+                            {{form.reminder}}
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Reminder
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="row mt-3">
+                <div class="col-12">
+                  <input type="submit" class="btn btn-primary submitBtn" value="Add">
+                </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="list-group">
+          <div class="list mt-4">    
+            
+            <p>Pending Task</p>
+
+            {% for task in tasks %}
+            
+            {% if task.done == False %}
+            <div class="row">
+              <div class="col-8 list-group-item">
+                <a href="{{task.get_absolute_url}}">{{task.title}}</a>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="padd" style="padding: 0 0;">
+                        <a href="{% url 'task-done' task.pk %}" type="button" class="btn btn-warning">Do</a>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-4" >
+                    <div class="padd" style="padding: 0 7px;">
+                    <button class="btn btn-warning">
+                      <i class="bi bi-share"></i>
+                    </button>
+                    </div>
+                  </div>
+                  <div class="col-4" >
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-gear-wide"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Privacy</a></li>
+                        <li><a class="dropdown-item" href="#">Update</a></li>
+                        <li><a class="dropdown-item" href="{% url 'delete-task' task.pk %}">Delete</a></li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+              
+
+            {% endfor %}
+            <p class="mt-3">Done Task</p>
+            {% for task in tasks %}
+            
+            {% if task.done == True %}
+            <div class="row">
+              <div class="col-8 list-group-item">
+                <a href="{{task.get_absolute_url}}">{{task.title}}</a>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-4">
+                    <div class="padd" style="padding: 0 0;">
+                      <a href="{% url 'task-done' task.pk  %}" type="button" class="btn btn-outline-success">Done</a>
+                    </div>
+                  </div>
+                  <div class="col-4" >
+                    <div class="padd" style="padding: 0 7px;">
+                    <a type="button" href="{% url 'task-share' task.pk %}" class="btn btn-warning">
+                      <i class="bi bi-share"></i>
+                    </a>
+                    </div>
+                  </div>
+                  <div class="col-4" >
+                    <div class="dropdown">
+                      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-gear-wide"></i>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Privacy</a></li>
+                        <li><a class="dropdown-item" href="#">Update</a></li>
+                        <li><a class="dropdown-item" href="{% url 'delete-task' task.pk %}">Delete</a></li>
+                       
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+              
+
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+  
+

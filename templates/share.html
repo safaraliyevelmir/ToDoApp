@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="d-flex justify-content-center mainBox">
+
+            <div class="toDoBox">
+                <h1 style="text-align: center;">To Do List</h1>
+                <div class="form-todo">
+                    <form method="POST" >
+          
+                      <div class="row">
+                        <div class="col-8">
+                          <h3>{{task.title}}</h3>
+                        </div>
+                        <div class="col-4">
+                          <b>
+                            <p>Created time: {{task.created_at}}</p>
+                          </b>
+                          <b>
+                            <p style="color:red;">Deadline: {{task.deadline}}</p>
+                          </b>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="row mt-4">
+                          <div class="col-12">
+                            <p>{{task.description}}</p>
+                          </div>
+                        </div>
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <div class="form-check">
+                              <input class="form-check-input" name="email" type="checkbox" value="" {% if task.done == True %} checked
+                                {% else %} {% endif %} disabled id="flexCheckDefault">
+                              <label class="form-check-label" for="flexCheckDefault">
+                                Reminder
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                    </form>
+                  </div>
+                <div class="share-box mt-4">
+                  <form action="{% url 'task-share' task.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-9">
+                          <div class="form-group">
+                              <input type="email" name="email" placeholder="Enter the username or email of the friend you want to share" class="form-control">
+                          </div>
+                      </div>
+                      <div class="col-3">
+                          <div class="form-group">
+                              <input type="submit" class="btn btn-primary" value="Share">
+                          </div>
+                      </div>
+                  </div>
+                  </form>
+                </div>
+                <div class="share-list mt-4">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">rustem@gmail.com</div>
+                          </div>
+                          <span class="badge bg-primary rounded-pill">admin</span>
+                          <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                          <div class="ms-2 me-auto">
+                            <div class="fw-bold">samirkarimov@gmail.com</div>
+                          </div>
+                          <span class="badge bg-primary rounded-pill">pending</span>
+                          <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
+                        </li>
+                      </ol>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+    
