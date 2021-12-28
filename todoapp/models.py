@@ -5,6 +5,12 @@ from django.contrib.auth import get_user_model
 
 user = get_user_model()
 
+STATUS_CHOICE = (
+    ('Admin','Admin'),
+    ('Spectator','Spectator')
+)
+
+
 class Task(models.Model):
 
     title = models.CharField(max_length=255)
@@ -29,11 +35,13 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
-
 class TaskShare(models.Model):
 
     user = models.ForeignKey(user,on_delete=models.CASCADE,related_name="user_share_task")
     task = models.ForeignKey(Task,on_delete=models.CASCADE,related_name='task_share')
+    status = models.CharField(choices=STATUS_CHOICE,max_length=255)
+    request = models.BooleanField(default=False)
+
 
     # moderation
     created_at = models.DateTimeField(auto_now_add=True)
@@ -41,7 +49,6 @@ class TaskShare(models.Model):
 
     def __str__(self):
         return f"{self.user.email} {self.task.title}"
-
 
 class Comment(models.Model):
     

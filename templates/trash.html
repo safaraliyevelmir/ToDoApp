@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+      {% for trash in trashs %}
+      <div class="col-3">
+        <div class="trash-box">
+          <p>Task Name</p>
+          <p>Deadline: 12.42.1343</p>
+          <p>
+            Done:  <input type="checkbox" checked>
+          </p>
+          <p>
+            <a href="{% url 'delete-task-trash' trash.pk %}" type="button" class="btn btn-danger">Delete</a>
+          </p>
+          <p>
+            <a href="{% url 'restore-task' trash.pk %}" type="button" class="btn btn-warning">Restore</a>
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
+    

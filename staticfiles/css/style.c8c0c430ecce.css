@@ -1,0 +1,19 @@
+body{
+    background-color: #1cbb9b;
+}
+
+.toDoBox{
+    background-color: white;
+    max-width: 1000px;
+    padding: 2rem 2rem;
+    min-width: 800px;
+    margin-top: 5rem;
+}
+
+.trash-box{
+    background-color: white;
+}
+
+.submitBtn{
+    width: 100%;
+}

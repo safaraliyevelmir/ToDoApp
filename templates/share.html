@@ -47,35 +47,51 @@
                   <form action="{% url 'task-share' task.id %}" method="post">
                     {% csrf_token %}
                     <div class="row">
-                      <div class="col-9">
+                      <div class="col-6">
                           <div class="form-group">
                               <input type="email" name="email" placeholder="Enter the username or email of the friend you want to share" class="form-control">
                           </div>
                       </div>
-                      <div class="col-3">
+
+                      <div class="col-6">
                           <div class="form-group">
-                              <input type="submit" class="btn btn-primary" value="Share">
+                            <select class="form-select" name="user_type" aria-label="Default select example">
+                              <option value="Spectator" selected>Spectator</option>
+                              <option value="Admin">Admin</option>
+                            </select>
                           </div>
                       </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-6">
+                      <div class="form-group">
+                          <input type="submit" class="btn btn-primary" value="Share">
+                      </div>
+                  </div>
+                  </div>
                   </div>
                   </form>
                 </div>
                 <div class="share-list mt-4">
                     <ol class="list-group list-group-numbered">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">rustem@gmail.com</div>
-                          </div>
-                          <span class="badge bg-primary rounded-pill">admin</span>
-                          <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                          <div class="ms-2 me-auto">
-                            <div class="fw-bold">samirkarimov@gmail.com</div>
-                          </div>
-                          <span class="badge bg-primary rounded-pill">pending</span>
-                          <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
-                        </li>
+                      {% for share in task_share %}
+                      <li class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold">{{share.user.email}} </div>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">
+                          
+                          {% if share.request == False %}
+                            pending for {{share.status}}
+                          {% else %}
+                          {{share.status}}
+                          {% endif %}
+      
+                            
+                        </span>
+                        <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
+                      </li>
+                      {% endfor %}
                       </ol>
                 </div>
             </div>

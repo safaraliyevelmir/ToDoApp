@@ -1,4 +1,6 @@
+from django.http import request
 from django.shortcuts import redirect, render
+from django.views.generic.base import TemplateView
 from .models import Task, TaskShare
 from .forms import TaskForm, CommentForm
 from django.views.generic import DetailView
@@ -43,6 +45,15 @@ class TaskSharePageView(LoginRequiredMixin,DetailView):
     template_name = 'share.html'
     model = Task
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        task = self.get_object()
+        user = task.user
+        context["task_share"] = TaskShare.objects.filter(task=task)
+        return context
+    
+
+
     def get (self,request,*args,**kwargs):
         self.object = self.get_object()
         context = self.get_context_data(object=self.object)
@@ -53,15 +64,24 @@ class TaskSharePageView(LoginRequiredMixin,DetailView):
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
+        user_type = request.POST.get('user_type')
         task = self.get_object()
-        task_share = User.objects.filter(email=email).first()
-        if task_share:
-            TaskShare.objects.create(task=task,user=task_share)
+        user = User.objects.filter(email=email).first()
+        if user:
+            TaskShare.objects.create(task=task,user=user,status=user_type)
         else:
             pass
 
         return redirect(reverse('task-share',args=[task.pk]))
 
+class TrashPageView(LoginRequiredMixin,TemplateView):
+    template_name = 'trash.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["trashs"] = Task.objects.filter(is_deleted=True,user=self.  request.user).all() 
+        return context
+  
 def deleteTask(request,pk):
     
     task = Task.objects.get(pk=pk)
@@ -92,3 +112,14 @@ def doneTask(request,pk):
         task.done = True
         task.save()
     return redirect('index')
+
+def restoreTask(request,pk):
+    task = Task.objects.get(pk=pk)
+    task.is_deleted = False
+    task.save()
+    return redirect('trash')
+
+def deleteTaskFromTrash(request,pk):
+    task = Task.objects.get(pk=pk)
+    task.delete()
+    return redirect('trash')
