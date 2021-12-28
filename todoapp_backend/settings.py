@@ -129,9 +129,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'safaraliyevelmir@gmail.com'
 EMAIL_HOST_PASSWORD = 'kiltcjjlwhblxtvu'
 
+# redis://localhost:6379
+CELERY_BROKER_URL = 'redis://:p98161089cc1af061f1c90135e98899d91ca59031539a4fa1416aafd314fc4e94@ec2-3-209-100-58.compute-1.amazonaws.com:31130'
+CELERY_RESULT_BACKEND = 'redis://:p98161089cc1af061f1c90135e98899d91ca59031539a4fa1416aafd314fc4e94@ec2-3-209-100-58.compute-1.amazonaws.com:31130'
 
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
