@@ -1,4 +1,5 @@
 {% load static %}
+{% load message %}
 <!doctype html>
 <html lang="en">
 
@@ -37,13 +38,16 @@
             <a class="nav-link active" aria-current="page" href="{% url 'trash' %}">Trash</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="">Shared Task</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'shared-task' %}">Shared Task</a>
           </li>
         </ul>
         <div class="d-flex">
 
           {% if request.user %}
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'message' %}"><i class="bi bi-chat-dots"></i> {% messageCount request.user %}</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">{{request.user.email}}</a>
             </li>

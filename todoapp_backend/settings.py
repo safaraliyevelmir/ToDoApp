@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'todoapp_backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_name',
+        'USER':'user_name',
+        'PASSWORD':'123',
+        'HOST':'127.0.0.1',
+        'PORT': '5432',
     }
 }
 
@@ -129,9 +133,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'safaraliyevelmir@gmail.com'
 EMAIL_HOST_PASSWORD = 'kiltcjjlwhblxtvu'
 
-# redis://localhost:6379
-CELERY_BROKER_URL = 'redis://:p98161089cc1af061f1c90135e98899d91ca59031539a4fa1416aafd314fc4e94@ec2-3-209-100-58.compute-1.amazonaws.com:31130'
-CELERY_RESULT_BACKEND = 'redis://:p98161089cc1af061f1c90135e98899d91ca59031539a4fa1416aafd314fc4e94@ec2-3-209-100-58.compute-1.amazonaws.com:31130'
+# 
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'

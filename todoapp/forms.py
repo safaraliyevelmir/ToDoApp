@@ -7,7 +7,7 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['title','deadline','description','reminder']
-    
+
     
         widgets = {
             'title':forms.TextInput(attrs={'class':'form-control','placeholder':'Title'}),
@@ -16,6 +16,7 @@ class TaskForm(forms.ModelForm):
             'description':forms.Textarea(attrs={'class':'form-control','placeholder':'Description'})
 
         }
+
 
 
 class CommentForm(forms.ModelForm):

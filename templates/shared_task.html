@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mt-4">
+      {% for shared_task in tasks %}
+      <div class="col-3">
+        <div class="trash-box">
+          <p>{{shared_task.task.title}}</p>
+          <p>Deadline: {{shared_task.task.deadline}}</p>
+          <p>
+            Done:  <input type="checkbox"  disabled
+            
+            {% if shared_task.task.done == True %}
+            checked
+            {% else %}
+
+            {% endif %}
+              
+            >
+          </p>
+          <p>
+            <a href="{% url 'delete-task-request' shared_task.pk %}" type="button" class="btn btn-danger">Leave Task</a>
+          </p>
+          <p>
+            <a href="{% url 'task-detail' shared_task.task.pk %}" type="button" class="btn btn-success">Open Task</a>
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+</div>
+{% endblock content %}
+    

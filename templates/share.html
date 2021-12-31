@@ -89,7 +89,7 @@
       
                             
                         </span>
-                        <button style="margin-left: 10px;" class="btn btn-danger">Delete</button>
+                        <a href="{% url 'delete-task-request' share.pk %}" style="margin-left: 10px;" class="btn btn-danger">Delete</a>
                       </li>
                       {% endfor %}
                       </ol>

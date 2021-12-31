@@ -8,7 +8,7 @@ from celery.decorators import task
 @shared_task
 def delete_post():
     delta = datetime.today() - timedelta(minutes=3)
-    delete_posts = Task.objects.filter(updated_at__gte=delta,is_deleted=True)
+    delete_posts = Task.objects.filter(updated_at__lte=delta,is_deleted=True)
     delete_posts.delete()
 
 

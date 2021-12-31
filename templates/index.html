@@ -96,7 +96,7 @@
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">Privacy</a></li>
-                        <li><a class="dropdown-item" href="#">Update</a></li>
+                        <li><a class="dropdown-item" href="{% url 'update-task' task.pk %}">Update</a></li>
                         <li><a class="dropdown-item" href="{% url 'delete-task' task.pk %}">Delete</a></li>
                        
                       </ul>
@@ -138,7 +138,7 @@
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#">Privacy</a></li>
-                        <li><a class="dropdown-item" href="#">Update</a></li>
+                        <li><a class="dropdown-item" href="{% url 'update-task' task.pk %}">Update</a></li>
                         <li><a class="dropdown-item" href="{% url 'delete-task' task.pk %}">Delete</a></li>
                        
                       </ul>

@@ -34,7 +34,6 @@
     </ul>
     {% endif %}
     <form class="email-login" method="post">
-      {{request.user}}
       {% csrf_token %}
       <div class="u-form-group">
       {{form.email}}
